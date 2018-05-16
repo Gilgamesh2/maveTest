@@ -9,6 +9,7 @@ public class DataWatcher implements Watcher, Runnable {
         DataWatcher dataWatcher = new DataWatcher();
         dataWatcher.printDate();
         dataWatcher.run();
+        System.out.println(1111);
     }
 
     private static String hostPort = "localhost:2181";
