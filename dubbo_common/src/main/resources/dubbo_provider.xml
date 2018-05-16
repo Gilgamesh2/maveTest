@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:dubbo="http://code.alibabatech.com/schema/dubbo"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+        http://code.alibabatech.com/schema/dubbo http://code.alibabatech.com/schema/dubbo/dubbo.xsd">
+
+    <!-- 注解包扫描位置: 因为这里的实现类使用注解的方式 -->
+    <context:component-scan base-package="com.zk.service.*" />
+
+    <!-- 接入dubbo的应用程序名称 -->
+    <dubbo:application name="demo-provider" />
+
+    <!-- 注册仓库地址：zookeeper组件，192.168.61.128:2181 -->
+    <dubbo:registry address="zookeeper://127.0.0.1:2181" />
+
+    <!-- 用dubbo协议在20880端口暴露服务 -->
+    <dubbo:protocol name="dubbo" port="20880" />
+
+    <!--
+            声明需要暴露的服务接口，
+            请注意ref属性中指定的HelloService接口实现类，它并没有在xml文件中定义，而是使用注解的方式在class中定义
+     -->
+    <dubbo:service interface="com.zk.service.HelloInterface" ref="helloImpl"/>
+</beans>
