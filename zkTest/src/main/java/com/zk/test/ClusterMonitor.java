@@ -89,11 +89,12 @@ public class ClusterMonitor implements Runnable {
     }
 
     public static void main(String[] args) throws IOException, InterruptedException, KeeperException {
-        //  if (args.length != 1) {
-        //      System.err.println("Usage: ClusterMonitor <Host:Port>");
-        //      System.exit(0);
-        //  }
         String hostPort = "localhost:2181";
         new ClusterMonitor(hostPort).run();
+          if (args.length != 1) {
+              System.err.println("Usage: ClusterMonitor <Host:Port>");
+              System.exit(0);
+          }
+
     }
 }
