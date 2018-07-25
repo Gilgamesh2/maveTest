@@ -20,6 +20,7 @@ public class QUARTTest {
         scheduler.scheduleJob(jobDetail, trigger);
         scheduler.start();
 
+
     }
 
 }
