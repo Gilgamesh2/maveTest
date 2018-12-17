@@ -1,8 +1,10 @@
 package com.example.demo;
 
+import com.example.entity.MDate;
 import com.example.entity.User;
 import com.example.service.UserService;
 import com.example.service.impl.UserImpl;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Controller;
@@ -10,7 +12,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.util.Date;
 import java.util.List;
+
 //使用@RestController将该类声明为一个controller
 @RestController
 public class UserController {
@@ -18,11 +22,10 @@ public class UserController {
     private UserService userService;
 
     //使用@RequestBody来接受异步请求
-
     @ResponseBody
-    @RequestMapping(value="/index")
-    public String index(){
-        return "hello";
+    @RequestMapping(value = "/index", produces = {"application/json"})
+    public MDate index() {
+        return new MDate(1, new Date());
     }
 
     //@RequestMapping来配置请求路径
@@ -31,27 +34,28 @@ public class UserController {
     //@RequestParam用来增加请求参数，具体可设置属性看源码
 
     @ResponseBody
-    @RequestMapping(value = "/add",produces = {"application/json;charset=UTF-8"},method = RequestMethod.GET)
-    public  User addUser(User user){
+    @RequestMapping(value = "/add", produces = {"application/json;charset=UTF-8"}, method = RequestMethod.GET)
+    public User addUser(User user) {
 
         System.out.println("i am come in ");
         System.out.println(userService);
 
         System.out.println(user.toString());
         userService.addUser(user);
-       return user;
-
+        return user;
 
 
     }
-    @RequestMapping(value="/find",produces = {"application/json;charset=UTF-8"},method = RequestMethod.GET)
+
+    @RequestMapping(value = "/find", produces = {"application/json;charset=UTF-8"}, method = RequestMethod.GET)
     @ResponseBody
-    public User findById(int no){
+    public User findById(int no) {
         return userService.findById(no);
     }
-    @RequestMapping(value="/findAll",produces = {"application/json;charset=UTF-8"},method = RequestMethod.GET)
+
+    @RequestMapping(value = "/findAll", produces = {"application/json;charset=UTF-8"}, method = RequestMethod.GET)
     @ResponseBody
-    public List<User> findByAll(int i){
+    public List<User> findByAll(int i) {
         return userService.findAll(i);
     }
 
